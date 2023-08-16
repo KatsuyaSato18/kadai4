@@ -1,0 +1,58 @@
+<p id="notice"></p>
+<div>
+  <%= flash[:notice] %>
+</div>
+<div class="container">
+  <div class="row justify-content-left">
+    <div class="col-sm-12 col-md-8 col-lg-6 px-5 py-5 px-sm-0 ">
+      <span class="bg-light px-2">マイページ</span>
+      <div class="field row mt-4">
+        <div class="col-4 font-weight-bold">登録情報
+        </div>
+        <div class="row mb-3">
+          <a href="<%= customers_edit_path %>" class="btn btn-success">編集する</a>
+        </div>
+        <div class="actions col-8">
+        </div>
+      </div>
+      <table class="table table-bordered ">
+        <tbody>
+          <tr></tr>
+          <tr>
+            <th class="bg-light">氏名</th>
+            <th><%= "#{@customer.last_name}  #{@customer.first_name}" %></th>
+          </tr>
+          <tr>
+            <th class="bg-light">カナ</th>
+            <th><%= "#{@customer.last_name_kana}  #{@customer.first_name_kana}" %></th>
+          </tr>
+          <tr>
+            <th class="bg-light">郵便番号</th>
+            <th><%= @customer.postal_code %></th>
+          </tr>
+          <tr>
+            <th class="bg-light">住所</th>
+            <th><%= @customer.address %></th>
+          </tr>
+          <tr>
+            <th class="bg-light">電話番号</th>
+            <th><%= @customer.telephone_number %></th>
+          </tr>
+          <tr>
+            <th class="bg-light">メールアドレス</th>
+            <th><%= @customer.email %></th>
+          </tr>
+        </tbody>
+      </table>
+      <div class="field row mt-4">
+        <div class="col-4 font-weight-bold">注文履歴
+        </div>
+        <div class="row mb-3">
+          <a href="<%= orders_index_path %>" class="btn btn-primary">一覧を見る</a>
+          </div>
+        <div class="actions col-8">
+        </div>
+    　</div>
+    </div>
+  </div>
+</div>

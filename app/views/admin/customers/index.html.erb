@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-8 col-lg-8 px-5 py-5 px-sm-0 ">
+      <span class="bg-light px-2">会員一覧</span>
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th class="bg-light">会員ID</th>
+            <th class="bg-light">氏名</th>
+            <th class="bg-light">メールアドレス</th>
+            <th class="bg-light">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers.each do |customer| %>
+            <tr>
+              <td><%= customer.id %></td>
+              <td><%= "#{customer.last_name} #{customer.first_name}" %></td>
+              <td><%= customer.email %></td>
+              <td>
+                <% if !customer.is_deleted %>
+                <span class="text-success font-weight-bold">有効</span>
+                <% else %>
+                <span class="text-muted font-weight-bold">退会</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="field row mt-4">
+        <div class="col-4 font-weight-bold">注文履歴</div>
+        <div class="row mb-3">
+          <a href="<%= orders_index_path %>" class="btn btn-primary">一覧を見る</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
