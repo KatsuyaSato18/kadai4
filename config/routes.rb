@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :customers, only:[:index,:show,:edit]
     resources :items, only:[:new, :index,:show,:edit]
+    resources :orders, only:[:show]
     root to: 'homes#top'
-    get 'orders/show'
   end
 
   scope module: :public do
