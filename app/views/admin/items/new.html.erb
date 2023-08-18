@@ -5,68 +5,35 @@
       <div class="form-group row">
         <span class="bg-light px-2 h4 mb-3">商品新規登録</span>
       </div>
-      <%= form_with model: [:admin, @customer] do |f| %>
-      <div class="form-group row"> <!-- こちらの全角スペースを削除しました -->
-          <label class="col-3 col-form-label">会員ID</label>
-          <div class="col-4">
-            <%= @customer.id %>
-          </div>
-      </div>
-      <div class="form-group row"> <!-- こちらの全角スペースを削除しました -->
-          <label class="col-3 col-form-label">氏名</label>
-          <div class="col-4">
-            <%= f.text_field :last_name, class:"form-control", id:"inputLastName" %>
-          </div>
-          <div class="col-4">
-            <%= f.text_field :first_name, class:"form-control", id:"inputFirstName"%>
-          </div>
-      </div>
+      <%= form_with model: @item, url: admin_items_path do |f| %>
         <div class="form-group row">
-          <label class="col-3 col-form-label">フリガナ</label>
+          <label class="col-3 col-form-label">商品画像</label>
           <div class="col-4">
-            <%= f.text_field :last_name_kana, class:"form-control", id:"inputLastNameKana" %>
-          </div>
-          <div class="col-4">
-            <%= f.text_field :first_name_kana, class:"form-control", id:"inputFirstNameKana"%>
+            <%= f.file_field :image, accept: "image/*", class:"form-control" ,id:"inputImage" %>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-3 col-form-label">郵便番号</label>
+          <label class="col-3 col-form-label">商品名</label>
           <div class="col-4">
-            <%= f.text_field :postal_code, class:"form-control", id:"inputPostalCode" %>
+            <%= f.text_field :name, class:"form-control",placeholder: "商品名", id:"inputName" %>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-3 col-form-label">住所</label>
-          <div class="col-9">
-            <%= f.text_field :address, class:"form-control", id:"inputAddress" %>
+          <label class="col-3 col-form-label">商品説明</label>
+          <div class="col-4">
+            <%= f.text_area :introduction, class:"form-control", placeholder: "ここに説明文を記述します", id:"inputIntroduction", rows: 5 %>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-3 col-form-label">電話番号</label>
-          <div class="col-4">
-            <%= f.text_field :telephone_number, class:"form-control", id:"inputTelephoneNumber" %>
+          <label class="col-3 col-form-label">税抜価格</label>
+          <div class="col-4 d-flex align-items-center">
+            <%= f.text_field :price, class:"form-control", placeholder: "1000", id:"inputPrice" %>
+            <span class="ml-2">円</span>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">メールアドレス</label>
-          <div class="col-4">
-            <%= f.text_field :email, class:"form-control", id:"inputEmail" %>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">会員ステータス</label>
-          <div class="col-4">
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_deleted, "有効", { value: :false }  %>
-
-            <%= f.radio_button :is_deleted, :true %>
-            <%= f.label :is_deleted, "退会", { value: :true } %>
-          </div>
-        </div>
-        <div class="form-group row text-center">
-          <div class="col-4">
-            <%= f.submit "編集内容を保存", class:"btn btn-success" %>
+        <div class="form-group row text-center ">
+          <div class="col-6">
+            <%= f.submit "新規登録", class:"btn btn-success" %>
           </div>
         </div>
       <% end %>
