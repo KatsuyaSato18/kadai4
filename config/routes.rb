@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root to: "public/homes#top"
 
   namespace :admin do
-    resources :customers, only:[:index,:show,:edit]
-    resources :items, only:[:new, :index,:show,:edit]
+    resources :customers, only:[:index,:show,:edit,:update]
+    resources :items, only:[:new, :index,:show,:edit,:update,:create]
     resources :orders, only:[:show]
     root to: 'homes#top'
   end
