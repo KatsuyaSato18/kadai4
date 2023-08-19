@@ -1,40 +1,46 @@
 <p id="notice"></p>
+<div>
+  <%= flash[:notice] %>
+</div>
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-md-10 col-lg-10 px-5 py-5 px-sm-0 ">
+    <div class="col-sm-12 col-md-8 col-lg-8 px-5 py-5 px-sm-0 ">
       <div class="form-group row">
         <span class="bg-light px-2 h4 mb-3">商品詳細</span>
       </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">商品画像</label>
-          <div class="col-4">
-            <%= image_tag @item.image %>
+      <div class="row">
+        <!-- 画像を左側に配置 -->
+        <div class="col-md-6">
+          <%= image_tag @item.image , size: "250x200"%>
+        </div>
+        <!-- 商品の詳細を右側に配置 -->
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-3 col-form-label">商品名</label>
+            <div class="col-9">
+              <%= @item.name %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">商品説明</label>
+            <div class="col-9">
+              <%= @item.introduction %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label">税込価格<br>(税抜価格)</label>
+            <div class="col-8 d-flex align-items-center">
+              <%= number_with_delimiter(tax_included_price(@item.price)) %>(<%= number_with_delimiter(@item.price) %>)
+              <span class="ml-2">円</span>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">商品名</label>
-          <div class="col-4">
-            <%= @item.name %>
-          </div>
+      </div>
+      <div class="form-group row text-right ">
+        <div class="col-6">
+          <a href="<%= edit_admin_item_path %>" class="btn btn-success">編集する</a>
         </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">商品説明</label>
-          <div class="col-4">
-            <%= @item.introduction %>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">税込価格(税抜価格)</label>
-          <div class="col-4 d-flex align-items-center">
-            <%= tax_included_price(@item.price) %>(<%= @item.price %>)
-            <span class="ml-2">円</span>
-          </div>
-        </div>
-        <div class="form-group row text-center ">
-          <div class="col-6">
-            <a href="<%= edit_admin_item_path %>" class="btn btn-success">編集する</a>
-          </div>
-        </div>
+      </div>
   　</div>
   </div>
 </div>

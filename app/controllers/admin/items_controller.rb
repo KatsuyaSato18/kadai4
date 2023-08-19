@@ -3,7 +3,7 @@ class Admin::ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update]
 
   def index
-    @items =Item.all
+    @items = Item.page(params[:page])
   end
 
   def new
@@ -28,6 +28,13 @@ class Admin::ItemsController < ApplicationController
   end
 
   def update
+    item = Item.find(params[:id])
+    if item.update(item_params)
+      flash[:notice] = "商品情報を更新しました."
+      redirect_to admin_item_path(item)
+    else
+      render :edit
+    end
   end
 
   private
