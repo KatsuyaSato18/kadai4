@@ -10,19 +10,17 @@ Rails.application.routes.draw do
 
   scope module: :public do
     resources :items, only: [:index, :show]
+    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
     #resources :customers, only: [:show, :edit, :withdrawal]
     get 'orders/new'
     get 'orders/thanks'
     get '/orders', to: 'orders#index', as: :orders_index
     get 'orders/show'
-    get 'cart_items/index'
     get 'customers/my_page', to: 'customers#show' ,as: :my_page
     get '/customers/information/edit', to: 'customers#edit', as: :customers_edit
     patch '/customers/information', to: 'customers#update'
     patch '/customers/quit', to: 'customers#quit'
     get 'customers/withdrawal'
-    #get '/items', to: 'items#index'
-    #get 'items/show'
     get "/about" => "homes#about", as: "about"
   end
  # 顧客用
