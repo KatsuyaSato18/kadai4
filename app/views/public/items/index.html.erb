@@ -1,2 +1,28 @@
-<h1>Public::Items#index</h1>
-<p>Find me in app/views/public/items/index.html.erb</p>
+<div class="container">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-6">
+      <h4 class="d-inline-block px-2">商品一覧</h4>
+      <h6 class="d-inline-block">（全<%= Item.count %>件）</h6>
+    </div>
+  </div>
+  <div class="row">
+    <% @items.each_with_index do |item, index| %>
+      <div class="col-md-3">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <%= link_to image_tag(item.image, size: "200x180"), item_path(item.id) %>
+            <h5 class="card-title" style="min-height: 50px; overflow: hidden;"><%= link_to item.name, item_path(item.id), class: "text-dark text-decoration-underline" %></h5>
+            <p class="card-text">¥<%= number_with_delimiter(item.price) %></p>
+          </div>
+        </div>
+      </div>
+      <% if (index + 1) % 4 == 0 %>
+        </div>
+        <div class="row">
+      <% end %>
+    <% end %>
+  </div>
+  <div class="row justify-content-center">
+    <%= paginate @items %>
+  </div>
+</div>
