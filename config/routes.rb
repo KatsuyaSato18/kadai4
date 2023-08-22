@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 
   scope module: :public do
     resources :items, only: [:index, :show]
-    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
+    resources :cart_items, only: [:index, :update, :destroy, :create]
     #resources :customers, only: [:show, :edit, :withdrawal]
+    delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
     get 'orders/new'
     get 'orders/thanks'
     get '/orders', to: 'orders#index', as: :orders_index
