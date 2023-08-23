@@ -1,4 +1,7 @@
 <p id="notice"></p>
+<div>
+  <%= flash[:notice] %>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 px-5 py-5 px-sm-0 ">
@@ -24,11 +27,15 @@
               <h3>¥<%= number_with_delimiter(tax_included_price(@item.price)) %> </h3><h6>(税込)</h6> <!-- 価格を大きく、税込で表示 -->
             </div>
           </div>
-        </div>
-      </div>
-      <div class="form-group row text-right ">
-        <div class="col-6">
-          <a href="<%= cart_item_path %>" class="btn btn-success">カートに入れる</a>
+          <div class="form-group row">
+            <div class="col-6 d-flex align-items-center">
+              <%= form_for CartItem.new, url: cart_items_path do |f| %>
+              <%= f.hidden_field :item_id, value: @item.id %>
+              <%= f.select :amount, options_for_select(['個数選択'] + (1..10).to_a), {}, class: 'form-control' %>
+              <%= f.submit 'カートに入れる', class: 'btn btn-success mt-2 ml-2' %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
