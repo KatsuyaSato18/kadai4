@@ -1,6 +1,6 @@
 class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
-  before_action :set_cart_item, only: [:update, :destroy, :destroy_all]
+  before_action :set_cart_item, only: [:update, :destroy]
 
   def index
     @cart_items = current_customer.cart_items
@@ -51,7 +51,6 @@ class Public::CartItemsController < ApplicationController
     redirect_to cart_items_path
     end
   end
-
 
 
   def destroy

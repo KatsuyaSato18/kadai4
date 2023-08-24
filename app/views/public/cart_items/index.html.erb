@@ -22,11 +22,13 @@
           <% @cart_items.each do |cart_item| %>
             <%= form_with(url: cart_item_path(cart_item), method: :patch, local: true) do |f| %>
               <tr>
-                <td><%= cart_item.item.name %></td>
+                <td><%= image_tag cart_item.item.image, size: "100x100" %><%= cart_item.item.name %></td>
                 <td>¥<%= number_with_delimiter(tax_included_price(cart_item.item.price)) %></td>
                 <td>
-                  <%= f.select :amount, options_for_select((1..10).to_a, selected: cart_item.amount), {}, class: 'form-control' %>
-                  <%= f.submit '変更', class: 'btn btn-success' %>
+                  <div class="d-flex align-items-center">
+                    <%= f.select :amount, options_for_select((1..50).to_a, selected: cart_item.amount), {}, class: 'form-control w-50' %>
+                    <%= f.submit '変更', class: 'btn btn-success ml-2' %>
+                  </div>
                 </td>
                 <td>¥<%= number_with_delimiter(tax_included_price(cart_item.item.price) * cart_item.amount) %></td>
                 <td>
@@ -50,6 +52,11 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div class="row mt-5 row-content">
+        <div class="col-md-6 text-right">
+          <%= link_to '情報入力へ進む', new_order_path, class: 'btn btn-success' %>
         </div>
       </div>
     </div>
