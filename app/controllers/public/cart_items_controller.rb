@@ -44,11 +44,11 @@ class Public::CartItemsController < ApplicationController
 
   def update
     @cart_item = CartItem.find(params[:id])
-    if @cart_item.update(cart_item_params)
-      flash[:notice] = "カートに商品を更新しました。"
-      redirect_to cart_items_path
+    if @cart_item.update(amount: params[:amount])
+      flash[:notice] = "数量を更新しました。"
     else
-      # エラーハンドリング
+      flash[:notice] = "数量の更新に失敗しました。"
+    redirect_to cart_items_path
     end
   end
 
