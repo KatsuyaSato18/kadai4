@@ -67,6 +67,7 @@ class Public::CartItemsController < ApplicationController
   end
 
 
+
   private
 
   def set_cart_item

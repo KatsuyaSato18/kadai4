@@ -6,7 +6,7 @@
     <div class="col-12">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <span class="bg-light px-2 h4">ショッピングカート</span>
-        <%= link_to 'カートを空にする', cart_items_destroy_all_path, method: :delete, class: 'btn btn-danger', data: { confirm: "カートを空にしますか？" } %>
+        <%= link_to 'カートを空にする', '/cart_items/destroy_all', method: :delete, class: 'btn btn-danger', data: { confirm: "カートを空にしますか？" } %>
       </div>
       <table class="table table-bordered">
         <thead class="bg-light">
