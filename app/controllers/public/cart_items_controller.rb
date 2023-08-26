@@ -46,9 +46,10 @@ class Public::CartItemsController < ApplicationController
     @cart_item = CartItem.find(params[:id])
     if @cart_item.update(amount: params[:amount])
       flash[:notice] = "数量を更新しました。"
+    redirect_to cart_items_path
     else
       flash[:notice] = "数量の更新に失敗しました。"
-    redirect_to cart_items_path
+    render :index
     end
   end
 

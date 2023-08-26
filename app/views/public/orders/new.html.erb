@@ -4,7 +4,7 @@
       <div class="form-group row">
         <span class="bg-light px-2 h4 mb-3">注文情報入力</span>
       </div>
-      <%= form_with(model: @order, url: orders_path, method: :post) do |f| %>
+      <%= form_with(model: @order, url: orders_check_path, method: :post) do |f| %>
         <!-- お支払い方法 -->
         <div class="form-group row">
           <label class="col-3 col-form-label font-weight-bold">お支払い方法</label>

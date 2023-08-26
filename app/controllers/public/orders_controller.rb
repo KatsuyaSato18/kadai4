@@ -7,8 +7,11 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.customer_id = current_customer.id
+    @customer = current_customer
+    @order = Order.new
+    @order.postal_code = @customer.postal_code
+    @order.address = @customer.address
+    @order.name = "#{@customer.last_name} #{@customer.first_name}"
     if @order.save
       # 保存に成功した場合の処理
       redirect_to order_path(@order)
@@ -18,11 +21,18 @@ class Public::OrdersController < ApplicationController
     end
   end
 
+  def check
+    @order = Order.new(order_params)
+    @order.postal_code = current_customer.postal_code
+    @order.address = current_customer.address
+    @order.name = current_customer.first_name + current_customer.last_name
+  end
+
 
   private
 
   def order_params
-    params.require(:order).permit(:payment_method)
+    params.require(:order).permit(:postal_code, :address, :name, :payment_method)
   end
 
   def set_order
