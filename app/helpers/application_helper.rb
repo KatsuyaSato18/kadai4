@@ -5,5 +5,4 @@ module ApplicationHelper
   def tax_included_price(price)
     (price * (1 + TAX_RATE)).round
   end
-
 end

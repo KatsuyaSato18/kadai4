@@ -29,10 +29,10 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
-    @order.name = current_customer.first_name + current_customer.last_name
+    @order.name = current_customer.last_name + current_customer.first_name
     @order.postage = 800
     @cart_items = current_customer.cart_items.all
-    redirect_to orders_check_path
+    @total_price = @cart_items.inject(0) { |sum, item| sum + item.sum_price }
   end
 
 
