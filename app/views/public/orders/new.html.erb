@@ -1,4 +1,7 @@
 <div class="container">
+  <div>
+    <%= flash[:notice] %>
+  </div>
   <div class="row">
     <div class="col-sm-12 col-md-10 col-lg-10 px-5 py-5 px-sm-0 ">
       <div class="form-group row">
@@ -8,7 +11,7 @@
         <!-- お支払い方法 -->
         <div class="form-group row">
           <label class="col-3 col-form-label font-weight-bold">お支払い方法</label>
-          <div class="col-4">
+          <div class="col-12">
             <div class="form-check">
               <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
               <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
@@ -21,10 +24,13 @@
         </div>
         <!-- お届け先 -->
         <div class="form-group row">
-          <label class="col-3 col-form-label font-weight-bold">お届け先</label>
-          <div class="col-9">
-            <p>〒<%= "#{@customer.postal_code}#{@customer.address}" %></p>
-            <p><%= "#{@customer.last_name}#{@customer.first_name}" %></p>
+          <div>
+
+          </div>
+          <span class="col-3 col-form-label font-weight-bold">お届け先</span>
+          <div class="col-10 ">
+            <p>&emsp;〒<%= "#{@customer.postal_code}#{@customer.address}" %></p>
+            <p>&emsp;<%= "#{@customer.last_name}#{@customer.first_name}" %></p>
           </div>
         </div>
         <div class="form-group row text-right ">

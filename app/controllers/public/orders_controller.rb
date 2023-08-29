@@ -18,21 +18,25 @@ class Public::OrdersController < ApplicationController
         order_detail.total_price = cart.item.price
         order_detail.save
       end
-      flash[:notice] = "注文が完了しました。"
-      redirect_to orders_thanks_path
+      cart_items.destroy_all
     else
+      @order = Order.new(order_params)
       render :new
     end
   end
 
   def check
-    @order = Order.new(order_params)
-    @order.postal_code = current_customer.postal_code
-    @order.address = current_customer.address
-    @order.name = current_customer.last_name + current_customer.first_name
-    @order.postage = 800
-    @cart_items = current_customer.cart_items.all
-    @total_price = @cart_items.inject(0) { |sum, item| sum + item.sum_price }
+    if @order = Order.new(order_params)
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.last_name + current_customer.first_name
+      @order.postage = 800
+      @cart_items = current_customer.cart_items.all
+      @total_price = @cart_items.inject(0) { |sum, item| sum + item.sum_price }
+    else
+      flash[:notice] = "お支払い方法を選択してください。"
+      render :new
+    end
   end
 
 
