@@ -31,6 +31,9 @@ class Public::OrdersController < ApplicationController
     end
   end
 
+  def thanks
+  end
+
   def check
     if params[:order] && params[:order][:payment_method]
       @order = Order.new(order_params)
@@ -46,6 +49,11 @@ class Public::OrdersController < ApplicationController
       redirect_to new_order_path # または適当なパス
     end
   end
+
+  def index
+    @orders = Order.where(customer_id: current_customer.id).order(created_at: :desc)
+  end
+
 
 
   private

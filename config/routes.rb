@@ -12,11 +12,11 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :show]
     delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
     resources :cart_items, only: [:index, :update, :destroy, :create]
+    get 'orders/thanks', to: 'orders#thanks'
     resources :orders, only: [:index, :show, :new, :create]
     #resources :customers, only: [:show, :edit, :withdrawal]
     # routes.rb
     post 'orders/check', to: 'orders#check'
-    get 'orders/thanks', to: 'orders#thanks'
     get 'customers/my_page', to: 'customers#show' ,as: :my_page
     get '/customers/information/edit', to: 'customers#edit', as: :customers_edit
     patch '/customers/information', to: 'customers#update'
