@@ -36,15 +36,15 @@
               <tbody>
                 <tr>
                   <td class="w-50 bg-light">送料</td>
-                  <td class="w-50 text-right">¥<%= number_with_delimiter(@order.postage) %></td>
+                  <td class="w-50 ">¥<%= number_with_delimiter(@order.postage) %></td>
                 </tr>
                 <tr>
                   <td class="w-50 bg-light">商品合計</td>
-                  <td class="w-50 text-right">¥<%= number_with_delimiter(@total_price) %></td>
+                  <td class="w-50 ">¥<%= number_with_delimiter(@total_price -@order.postage) %></td>
                 </tr>
                 <tr>
                   <td class="w-50 bg-light">請求金額</td>
-                  <td class="w-50 text-right">¥<%= number_with_delimiter(@total_price + @order.postage) %></td>
+                  <td class="w-50 ">¥<%= number_with_delimiter(@total_price ) %></td>
                 </tr>
               </tbody>
             </table>
@@ -70,6 +70,7 @@
         <div class="col-6">
           <%= form_with(model: @order, url: orders_path, method: :post) do |f| %>
             <%= f.hidden_field :payment_method, value: @order.payment_method %>
+            <%= f.hidden_field :total_price, value: @total_price %>
             <%= f.submit "注文を確定する", class:"btn btn-success" %>
           <% end %>
         </div>

@@ -13,7 +13,7 @@ class Public::OrdersController < ApplicationController
     @order.address = current_customer.address
     @order.name = current_customer.last_name + current_customer.first_name
     @order.postage = 800
-    @order.total_price = cart_items.inject(0) { |sum, item| sum + item.sum_price }
+    @order.total_price = params[:order][:total_price]
 
     if @order.save
       cart_items.each do |cart|
@@ -43,6 +43,7 @@ class Public::OrdersController < ApplicationController
       @order.postage = 800
       @cart_items = current_customer.cart_items.all
       @total_price = @cart_items.inject(0) { |sum, item| sum + item.sum_price }
+      @total_price += @order.postage
     # ビューに移動する処理を書く
     else
       flash[:notice] = "お支払い方法を選択してください。"
@@ -51,7 +52,17 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.where(customer_id: current_customer.id).order(created_at: :desc)
+    @orders = Order.where(customer_id: current_customer.id).order(created_at: :desc).page(params[:page])
+  end
+
+  def show
+    @order = Order.find(params[:id])
+    @total_price = @order.total_price
+    unless @order.customer_id == current_customer.id
+      flash[:notice] =  "不正なアクセスです。"
+      redirect_to root_path
+      return
+    end
   end
 
 

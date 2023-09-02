@@ -12,7 +12,7 @@
           <div class="card-body text-center">
             <%= link_to image_tag(item.image, size: "200x180"), item_path(item.id) %>
             <h5 class="card-title" style="min-height: 50px; overflow: hidden;"><%= link_to item.name, item_path(item.id), class: "text-dark text-decoration-underline" %></h5>
-            <p class="card-text">¥<%= number_with_delimiter(item.price) %></p>
+            <p class="card-text">¥<%= number_with_delimiter(tax_included_price(item.price)) %></p>
           </div>
         </div>
       </div>
