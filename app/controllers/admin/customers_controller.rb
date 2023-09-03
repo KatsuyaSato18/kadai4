@@ -1,4 +1,6 @@
-class Admin::CustomersController < ApplicationController
+class Admin::CustomersController < ApplicationControlle
+  before_action :authenticate_admin!
+
   def index
     @customers =Customer.page(params[:page])
   end
@@ -25,6 +27,12 @@ class Admin::CustomersController < ApplicationController
 
   def customer_params
     params.require(:customer).permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :postal_code, :address, :telephone_number,:email, :password, :is_deleted)
+  end
+
+  def authenticate_admin!
+    unless admin_signed_in?  # Devise提供のヘルパー
+      redirect_to root_path
+    end
   end
 
 end

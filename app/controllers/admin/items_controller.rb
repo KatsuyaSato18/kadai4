@@ -43,9 +43,14 @@ class Admin::ItemsController < ApplicationController
    @item = Item.find(params[:id])
   end
 
-  private
   def item_params
     params.require(:item).permit(:name, :introduction, :price, :image)
+  end
+
+  def authenticate_admin!
+    unless admin_signed_in?  # Devise提供のヘルパー
+      redirect_to root_path
+    end
   end
 
 end

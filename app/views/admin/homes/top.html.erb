@@ -1,6 +1,32 @@
-<div>
-  <%= flash[:notice] %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-8 col-lg-8 px-5 py-5 px-sm-0 ">
+      <span class="bg-light px-2 h4">注文履歴一覧</span>
+      <table class="table mt-4 border-bottom">
+        <thead>
+          <tr>
+            <th class="bg-light">購入日時</th>
+            <th class="bg-light">購入者</th>
+            <th class="bg-light">注文個数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <!-- 注文履歴詳細のページへのリンクを購入日時に設定 -->
+              <td><%= link_to order.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_order_path(order.id), class: "text-dark text-decoration-underline" %></td>
+              <td><%= "#{order.customer.last_name} #{order.customer.first_name}" %></td>
+              <!-- 注文詳細から個数を計算（仮）-->
+              <td><%= order.order_details.sum(&:amount) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="field row mt-4 d-flex justify-content-center">
+        <div class="d-inline-block mx-auto">
+          <%= paginate @orders %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>

@@ -3,5 +3,6 @@ class Public::HomesController < ApplicationController
   end
 
   def about
+    @item = Item.first
   end
 end
