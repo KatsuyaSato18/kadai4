@@ -21,21 +21,25 @@ class Public::SessionsController < Devise::SessionsController
 
    protected
 
-   def reject_customer
+  def reject_customer
     @customer = Customer.find_by(email: params[:customer][:email])
     if @customer
-      if @customer.valid_password?(params[:customer][:password]) && (@customer.is_deleted == true)
-        flash[:notice] = "退会済みです。再度ご登録をしてご利用ください"
-        flash.keep(:notice)
-        redirect_to new_customer_registration_path
+      if @customer.valid_password?(params[:customer][:password])
+        if @customer.is_deleted == true
+          flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
+          redirect_to new_customer_registration_path
+        end
       else
-        flash[:notice] = "項目を入力してください"
+        if params[:customer][:password].blank? || params[:customer][:email].blank?
+          flash[:notice] = "項目を入力してください。"
+        else
+          flash[:notice] = "パスワードが違います。"
+        end
       end
     else
-      flash[:notice] = "該当するユーザーが見つかりません"
+      flash[:notice] = "該当するユーザーが見つかりません。"
     end
-   end
-
+  end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])

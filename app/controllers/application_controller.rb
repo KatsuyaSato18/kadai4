@@ -19,4 +19,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  protected
+
+  def authenticate_customer!
+    unless customer_signed_in?
+      flash[:notice] = "ログインまたは会員登録してください。"
+      redirect_to new_customer_session_path
+    end
+  end
+
 end

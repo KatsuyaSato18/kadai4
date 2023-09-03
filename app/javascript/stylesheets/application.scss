@@ -1,1 +1,8 @@
 @use '~bootstrap/scss/bootstrap';
+
+.bordered-link {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0 5px;
+}

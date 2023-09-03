@@ -23,6 +23,7 @@ class Admin::ItemsController < ApplicationController
     if @item.save
       redirect_to admin_item_path(@item)
     else
+      flash[:notice] = "商品情報を入力してください."
       render :new
     end
   end

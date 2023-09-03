@@ -12,48 +12,67 @@
   </head>
 
   <body>
-    <header>
-    <% if customer_signed_in? %>
-    <li>
-      <%= link_to 'マイページ', my_page_path %>
-    </li>
-    <li>
-      <%= link_to '商品一覧', items_path %>
-    </li>
-    <li>
-      <%= link_to 'カート', cart_items_path %>
-    </li>
-    <li>
-      <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-    </li>
-  <% else %>
-    <li>
-      <%= link_to "新規登録", new_customer_registration_path %>
-    </li>
-    <li>
-      <%= link_to "ログイン", new_customer_session_path %>
-    </li>
-  <% end %>
-
-  <% if admin_signed_in? %>
-    <li>
-      <%= link_to '商品一覧', admin_items_path %>
-    </li>
-    <li>
-      <%= link_to '会員一覧', admin_customers_path %>
-    </li>
-    <li>
-      <%= link_to '注文履歴一覧', admin_root_path %>
-    </li>
-    <li>
-      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-    </li>
-  <% else %>
-    <li>
-      <%= link_to "管理者ログイン", new_session_path(:admin) %>
-    </li>
-    <% end %>
-  </header>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="/"><%= image_tag "logo-black.png", alt: "Nagano Cake", width: "120" %></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if customer_signed_in? %>
+                <!-- For Customers -->
+                <li class="nav-item">
+                  <%= link_to 'マイページ', my_page_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to '商品一覧', items_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'カート', cart_items_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "nav-link text-dark bordered-link" %>
+                </li>
+              <% elsif admin_signed_in? %>
+                <!-- For Admins -->
+                <li class="nav-item">
+                  <%= link_to '商品一覧', admin_items_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to '会員一覧', admin_customers_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to '注文履歴一覧', admin_root_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark bordered-link" %>
+                </li>
+              <% else %>
+                <!-- For Non-Logged-In Users -->
+                <li class="nav-item">
+                  <%= link_to "About", about_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "商品一覧", items_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "新規登録", new_customer_registration_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "ログイン", new_customer_session_path, class: "nav-link text-dark bordered-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "管理者ログイン", new_session_path(:admin), class: "nav-link text-dark bordered-link" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>

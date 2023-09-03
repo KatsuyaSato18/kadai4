@@ -1,4 +1,12 @@
 <p id="notice"></p>
+<% if @item.errors.any? %>
+  <%= @item.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @item.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-10 col-lg-10 px-5 py-5 px-sm-0 ">
