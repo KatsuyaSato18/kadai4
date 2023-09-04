@@ -22,7 +22,8 @@ class Public::CustomersController < ApplicationController
       flash[:notice] = "会員情報を更新しました."
       redirect_to my_page_path
     else
-      render customers_edit_path
+      flash[:notice] = "会員の更新に失敗しました."
+      render :edit
     end
   end
 
