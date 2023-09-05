@@ -22,7 +22,14 @@ class Public::SessionsController < Devise::SessionsController
    protected
 
   def reject_customer
+  # 最初に項目が空かどうかを確認する
+    if params[:customer][:email].blank? || params[:customer][:password].blank?
+      flash[:notice] = "項目を入力してください。"
+      return
+    end
+
     @customer = Customer.find_by(email: params[:customer][:email])
+
     if @customer
       if @customer.valid_password?(params[:customer][:password])
         if @customer.is_deleted == true
@@ -30,14 +37,10 @@ class Public::SessionsController < Devise::SessionsController
           redirect_to new_customer_registration_path
         end
       else
-        if params[:customer][:password].blank? || params[:customer][:email].blank?
-          flash[:notice] = "項目を入力してください。"
-        else
-          flash[:notice] = "パスワードが違います。"
-        end
+        flash[:notice] = "パスワードが違います。"
       end
     else
-      flash[:notice] = "該当するユーザーが見つかりません。"
+      flash[:notice] = "該当するユーザーが見つかりません。再度入力してください。"
     end
   end
   # If you have extra params to permit, append them to the sanitizer.
